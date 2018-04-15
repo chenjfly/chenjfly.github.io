@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[GitHub Pages 地址解析到个人域名]]></title>
+    <url>%2F2018%2F04%2F15%2FGitHub%20Pages%20%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%88%B0%E4%B8%AA%E4%BA%BA%E5%9F%9F%E5%90%8D%2F</url>
+    <content type="text"><![CDATA[在前一篇博客中，已经完成了整个博客从无到有的搭建，有了自己的博客https://chenjfly.github.io,但这还不是太完美。这是 GitHub Pages 自动给我们分配的域名，域名太长，也无法实现个性化的需求。下面我们要做的就是注册一个自己心仪的域名，并且把 GitHub Pages 地址解析到我们的个人域名上。 购买域名个人域名当然是不会有人送给你的，所以先到各大域名注册网站上去申购一个域名，现在国内的域名注册机构注册域名貌似不管是企业还是个人，都需要进行备案，所以如果闲麻烦可以到国外的注册机构进行购买。我个人是在阿里云旗下万网申购的域名，个人备案在之前弄博客的时候就已经备案过，时间已经很久远了，但我记得也并不是很麻烦。这里提供一个阿里云域名购买的连接，方便进行跳转。阿里云万网:www.net.cn 这个就是我所购买的域名~哈哈，4 块钱 1 年，感觉很是划算。具体的注册购买流程，按照一步一步提示来就行了，相信都到买域名这一步了，不会就太捞了。 域名解析 配置 CNAME 文件 在 \hexo\source 文件夹下创建文件 CNAME，内容就是自己的域名，例如我的域名是：flyblog.top,然后运行hexo g -d进行提交。 设置域名解析进入域名解析设置，设置相应的域名解析。 记录类型选择 CNAME 主机记录填 www 解析线路选择默认 记录值填 yourname.github.io TTL 值为 10 分钟 再添加一个解析，记录类型 A 主机记录填 @ 解析线路选择默认 记录值填个人 GitHub Pages 的 ip 地址（可以在 cmd 中 ping 一下） TTL 值为 10 分钟 这时域名解析设置已经完成，在等待 1 分钟左右后，即可通过个人域名来访问博客了！]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[搭建自己的个人博客]]></title>
+    <url>%2F2018%2F04%2F15%2F%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%2F</url>
+    <content type="text"><![CDATA[这是一篇记录如何搭建个人博客的文章，在此之前也折腾过很多次。但博客长期荒废后，又完全忘了之前是怎么搭建的，当我这次想要重新开始自己的博客写作时，它顺利成章变成了我的第一篇博客，希望这次我能把写博客这件事情坚持下去。 在学习中，很早就发现，知识只进不出，学习效率是极低的，才学完感觉很简单，什么都懂，但是几天后就只记得一个大概了。所以打算以博客的方式来对知识进行一个积累和输出。这样的想法有过很多次，并且还实践过，但均死于我悲哀的执行力，这次一定可以坚持下去。好了，废话不多说，开始博客的搭建！！ ##需要的工具 git git 是大神 Linux 之父 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。需在电脑上安装git软件。官网下载:https://git-scm.com/downloads GitHub 全球最大的开源社区，主要提供基于 git 的版本托管服务。注册一个 GitHub 账号。GitHub官网:https://github.com/ Node.js Node.js 是一个基于Chrome JavaScript 运行时建立的一个平台，因为 Hexo 博客系统是基于 Node.js 编写的，所以需要下载并安装 Node.js。官方下载:https://nodejs.org/zh-cn/ 安装配置HexoHexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。在开始之前，建议看一看官方文档，俗话说“知己知彼百战百胜”。 使用 npm 安装 Hexo：桌面右键鼠标，点击Git Bash Here，在命令行中输入： npm install hexo-cli -g GitHub 配置这里有个很有帮助的点需要提一下，一般情况下，我们接下来会做 Hexo 的初始化配置，但这可以思考一个问题，Hexo 通过hexo d命令发布后，会把 public 文件夹下的文件同步到 GitHub，public 文件夹内是根据 .md 生成的 html 文件，也就博客的静态文件。在玩博客一段后，某一天电脑需要重装系统了怎么办？直接把 GitHub 仓库里的代码克隆下来是没有用的，因为它已经是经过 Hexo 处理后的文件了，我们需要的是 Hexo 的源码。 当然我们可以把这个存放 Hexo 文件的文件夹备份，装完系统之后直接粘贴即可。虽然这想法是完全可行的，但通过硬件介质备份的方式在今天看来也太 Low 了。经过查阅相关资料后，看到大家解决办法最佳的就是通过 GitHub 来对 Hexo 的源文件进行备份。 思路是创建两个分支，master 和 hexo。master 分支用来存放生成的静态网页，而 hexo 分支用来存放 hexo 的源文件。之后想要对博客进行更新或是修改配置，可以通过这样的流程进行： 依次执行git add .、git commit -m “…”、git push origin hexo指令将改动推送到GitHub（此时当前分支应为hexo） 然后执行hexo g -d发布网站到master分支上。 下面开始实操： 开始前先要让 Git 和 GitHub 账号关联起来，可以在网上查到很多的教程，这里就不一一演示了。 首先是在 GitHub 上创建一个用于部署博客的仓库，注意仓库的名称必须是 username.github.io 仓库建好后会有一个默认的 master 分支，此时再创建一个 hexo 分支，并把 hexo 分支设备默认分支。 如何设置默认分支？在仓库菜单栏最右边点击 Settings，找到 Branches 把Default branch 切换为 hexo，并点击 Update. 最后，在本地电脑自己偏好的路径下，执行git clone 远程仓库地址把仓库克隆到本地电脑上。 Hexo 初始化从远程仓库克隆过来本地，文件夹内会有两个默认文件（.git 和 README.md），需把它们先剪切出来，因为 hexo 初始化时，必须要是空文件夹。之后在本地仓库文件夹内右键，点击 Git Bash Here，执行以下代码： 12hexo initnpm install 初始化完成后，再把之前的两个文件拷贝回来，否则无法正常上传 hexo 源码。文件夹中各文件目录的作用，在 Hexo 官网中都有详细的介绍。 执行下面语句，执行完即可登录localhost:4000查看效果 12hexo generatehexo server 将本地 Hexo 部署到 GitHub Pages做这一步的前提是 Git 与 GitHub 已成功关联，并且 GitHub 仓库已正确配置。 在 hexo 文件夹中找到 _config.yml文件并打开，按下图进行配置，这里填写 master 分支是因为之前提到过，现在我们仓库有两个分支，用 master 分支来存放 hexo 生成后的静态文件。 文件修改之后，在 hexo 文件夹下运行: hexo g -d 如果报错 ERROR Deployer not found: git，就是deployer没有安装成功，需要执行如下命令安装： npm install hexo-deployer-git --save 完成后再执行hexo g -d，博客就部署到Github上了。这时可以通过 GitHub Pages 为我们生成的外链 「https://[用户名].github.io/」，通过公网访问我们的个人博客了。]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+  </entry>
+</search>
